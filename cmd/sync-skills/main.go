@@ -18,7 +18,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	src := "skills"
+	src := os.Getenv("AGENT_SKILL_PATH")
+	if src == "" {
+		fmt.Fprintln(os.Stderr, "Error: AGENT_SKILL_PATH is not defined")
+		os.Exit(1)
+	}
 	if _, err := os.Stat(src); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: source %s not found: %v\n", src, err)
 		os.Exit(1)
